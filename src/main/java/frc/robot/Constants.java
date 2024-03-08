@@ -33,6 +33,7 @@ public final class Constants {
     // 10 100 milliseconds in 1 seconds
     // 4096 ticks per rotation
     // Circumference
+    // Add gear ratio
     public static final double VelocityConversionFactor = 10 / 4096 * Units.inchesToMeters(6) * Math.PI;
   }
 }
