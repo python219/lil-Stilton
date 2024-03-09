@@ -17,6 +17,9 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * Drivetrain subsystem controlled with ChassisSpeeds
+ */
 public class Drivetrain extends SubsystemBase {
   TalonSRX frontLeft = new TalonSRX(DrivetrainConstants.FrontLeft);
   TalonSRX frontRight = new TalonSRX(DrivetrainConstants.FrontRight);
@@ -30,7 +33,7 @@ public class Drivetrain extends SubsystemBase {
     new Translation2d(DrivetrainConstants.WheelXDistance, -DrivetrainConstants.WheelYDistance)
   );
 
-  /** Creates a new ExampleSubsystem. */
+  /** Creates a new Drivetrain. */
   public Drivetrain() {
     frontLeft.setSensorPhase(false);
     frontRight.setSensorPhase(false);
@@ -46,7 +49,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Back Left Velocity", backLeft.getSelectedSensorVelocity() * DrivetrainConstants.VelocityConversionFactor);
     SmartDashboard.putNumber("Back Right Velocity", backRight.getSelectedSensorVelocity() * DrivetrainConstants.VelocityConversionFactor);
   }
-
+  
   public void setSpeeds(ChassisSpeeds speeds) {
     MecanumDriveWheelSpeeds wheelSpeeds = mecanumKinematics.toWheelSpeeds(speeds);
 

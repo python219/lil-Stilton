@@ -11,16 +11,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
-/** An example command that uses an example subsystem. */
+/** Drive command that stores a speeds supplier for {@link Drivetrain} */
 public class Drive extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain drivetrain;
   private Supplier<ChassisSpeeds> speedsSupplier;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new Drive.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param drivetrain The drivetrain subsystem
+   * @param speedsSupplier The ChassisSpeeds supplier
+   * 
    */
   public Drive(Drivetrain drivetrain, Supplier<ChassisSpeeds> speedsSupplier) {
     this.drivetrain = drivetrain;

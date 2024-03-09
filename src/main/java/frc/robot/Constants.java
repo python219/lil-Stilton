@@ -25,6 +25,7 @@ public final class Constants {
     public static final int BackLeft = 3;
     public static final int BackRight = 4;
     // Distance from center
+    // idk the actual values
     public static final double WheelXDistance = Units.inchesToMeters(6);
     public static final double WheelYDistance = Units.inchesToMeters(9);
     public static final double DrivetrainSpeed = 0.3;
