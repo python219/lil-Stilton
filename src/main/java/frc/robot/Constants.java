@@ -24,6 +24,6 @@ public final class Constants {
     public static final int FrontRight = 2;
     public static final int BackLeft = 3;
     public static final int BackRight = 4;
-    public static final double DrivetrainSpeed = 0.1;
+    public static final double DrivetrainSpeed = 0.5;
   }
 }

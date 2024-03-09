@@ -12,6 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -26,8 +27,8 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController driverController =
-      new CommandXboxController(OperatorConstants.DriverControllerPort);
+  private final CommandJoystick driverController =
+      new CommandJoystick(OperatorConstants.DriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,9 +49,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new Drive(
         drivetrain,
-        () -> -driverController.getLeftY() * DrivetrainConstants.DrivetrainSpeed,
-        () -> driverController.getLeftX() * DrivetrainConstants.DrivetrainSpeed,
-        () -> -driverController.getRightX() * DrivetrainConstants.DrivetrainSpeed
+        () -> driverController.getRawAxis(0) * DrivetrainConstants.DrivetrainSpeed,
+        () -> -driverController.getRawAxis(1) * DrivetrainConstants.DrivetrainSpeed,
+        () -> driverController.getRawAxis(2) * DrivetrainConstants.DrivetrainSpeed
       )
     );
   }

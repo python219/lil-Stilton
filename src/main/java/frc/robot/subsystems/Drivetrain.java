@@ -28,9 +28,9 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     frontLeft.setInverted(false);
-    frontRight.setInverted(false);
+    frontRight.setInverted(true);
     backLeft.setInverted(false);
-    backRight.setInverted(false);
+    backRight.setInverted(true);
   }
 
   @Override
@@ -48,5 +48,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Setpoint", frontRightSpeed);
     SmartDashboard.putNumber("Back Left Setpoint", backLeftSpeed);
     SmartDashboard.putNumber("Back Right Setpoint", backRightSpeed);
+
+    frontLeft.set(ControlMode.PercentOutput, frontLeftSpeed);
+    frontRight.set(ControlMode.PercentOutput, frontRightSpeed);
+    backLeft.set(ControlMode.PercentOutput, backLeftSpeed);
+    backRight.set(ControlMode.PercentOutput, backRightSpeed);
   }
 }
