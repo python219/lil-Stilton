@@ -17,7 +17,9 @@ import java.util.function.Supplier;
 public class Drive extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain drivetrain;
-  private Supplier<ChassisSpeeds> speedsSupplier;
+  private Supplier<Double> xSpeedSupplier;
+  private Supplier<Double> ySpeedSupplier;
+  private Supplier<Double> rotateSpeedSupplier;
 
   /**
    * Creates a new Drive.
@@ -25,9 +27,11 @@ public class Drive extends Command {
    * @param drivetrain The drivetrain subsystem
    * @param speedsSupplier The ChassisSpeeds supplier
    */
-  public Drive(Drivetrain drivetrain, Supplier<ChassisSpeeds> speedsSupplier) {
+  public Drive(Drivetrain drivetrain, Supplier<Double> xSpeedSupplier, Supplier<Double> ySpeedSupplier, Supplier<Double> rotateSpeedSupplier) {
     this.drivetrain = drivetrain;
-    this.speedsSupplier = speedsSupplier;
+    this.xSpeedSupplier = xSpeedSupplier;
+    this.ySpeedSupplier = ySpeedSupplier;
+    this.rotateSpeedSupplier = rotateSpeedSupplier;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -40,7 +44,7 @@ public class Drive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.setSpeeds(speedsSupplier.get());
+    drivetrain.setSpeeds(xSpeedSupplier.get(), ySpeedSupplier.get(), rotateSpeedSupplier.get());
   }
 
   // Called once the command ends or is interrupted.

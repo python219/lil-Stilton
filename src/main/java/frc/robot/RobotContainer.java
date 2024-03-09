@@ -48,11 +48,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new Drive(
         drivetrain,
-        () -> new ChassisSpeeds(
-          -driverController.getLeftY() * DrivetrainConstants.DrivetrainSpeed,
-          -driverController.getLeftX() * DrivetrainConstants.DrivetrainSpeed,
-          -driverController.getRightX() * DrivetrainConstants.RotationSpeed
-        )
+        () -> -driverController.getLeftY() * DrivetrainConstants.DrivetrainSpeed,
+        () -> driverController.getLeftX() * DrivetrainConstants.DrivetrainSpeed,
+        () -> -driverController.getRightX() * DrivetrainConstants.DrivetrainSpeed
       )
     );
   }
