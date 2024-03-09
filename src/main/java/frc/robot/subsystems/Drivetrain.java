@@ -27,7 +27,10 @@ public class Drivetrain extends SubsystemBase {
   TalonSRX backRight = new TalonSRX(DrivetrainConstants.BackRight);
 
   public Drivetrain() {
-    
+    frontLeft.setInverted(false);
+    frontRight.setInverted(false);
+    backLeft.setInverted(false);
+    backRight.setInverted(false);
   }
 
   @Override
@@ -36,6 +39,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setSpeeds(double xSpeed, double ySpeed, double rotate) {
-    
+    double frontLeftSpeed = xSpeed + ySpeed + rotate;
+    double frontRightSpeed = -xSpeed + ySpeed - rotate;
+    double backLeftSpeed = -xSpeed + ySpeed + rotate;
+    double backRightSpeed = xSpeed + ySpeed - rotate;
+
+    SmartDashboard.putNumber("Front Left Setpoint", frontLeftSpeed);
+    SmartDashboard.putNumber("Front Right Setpoint", frontRightSpeed);
+    SmartDashboard.putNumber("Back Left Setpoint", backLeftSpeed);
+    SmartDashboard.putNumber("Back Right Setpoint", backRightSpeed);
   }
 }
