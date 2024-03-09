@@ -33,7 +33,6 @@ public class Drivetrain extends SubsystemBase {
     new Translation2d(DrivetrainConstants.WheelXDistance, -DrivetrainConstants.WheelYDistance)
   );
 
-  /** Creates a new Drivetrain. */
   public Drivetrain() {
     frontLeft.setSensorPhase(false);
     frontRight.setSensorPhase(false);
@@ -49,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Back Left Velocity", backLeft.getSelectedSensorVelocity() * DrivetrainConstants.VelocityConversionFactor);
     SmartDashboard.putNumber("Back Right Velocity", backRight.getSelectedSensorVelocity() * DrivetrainConstants.VelocityConversionFactor);
   }
-  
+
   public void setSpeeds(ChassisSpeeds speeds) {
     MecanumDriveWheelSpeeds wheelSpeeds = mecanumKinematics.toWheelSpeeds(speeds);
 

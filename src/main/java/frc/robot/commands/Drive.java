@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
-/** Drive command that stores a speeds supplier for {@link Drivetrain} */
+/** 
+ * Drive command that stores a speeds supplier for {@link Drivetrain} 
+ */
 public class Drive extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain drivetrain;
@@ -22,7 +24,6 @@ public class Drive extends Command {
    *
    * @param drivetrain The drivetrain subsystem
    * @param speedsSupplier The ChassisSpeeds supplier
-   * 
    */
   public Drive(Drivetrain drivetrain, Supplier<ChassisSpeeds> speedsSupplier) {
     this.drivetrain = drivetrain;
