@@ -7,10 +7,16 @@ package frc.robot;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.Drive;
+import frc.robot.commands.FieldAlignedDrive;
+import frc.robot.commands.RobotAlignedDrive;
 import frc.robot.subsystems.Drivetrain;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -29,9 +35,20 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick driverController =
       new CommandJoystick(OperatorConstants.DriverControllerPort);
+  
+  private final SendableChooser<Double> speedChooser = new SendableChooser<>();
+
+  private AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    speedChooser.setDefaultOption("Normal Speed", DrivetrainConstants.DrivetrainNormalSpeed);
+    speedChooser.addOption("Slow Speed", DrivetrainConstants.DrivetrainSlowSpeed);
+    speedChooser.addOption("Fast Speed", DrivetrainConstants.DrivetrainFastSpeed);
+    SmartDashboard.putData(speedChooser);
+
+    ahrs.reset();
+    SmartDashboard.putData(ahrs);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -47,11 +64,13 @@ public class RobotContainer {
    */
   private void configureBindings() {
     drivetrain.setDefaultCommand(
-      new Drive(
+      new FieldAlignedDrive(
         drivetrain,
-        () -> driverController.getRawAxis(0) * DrivetrainConstants.DrivetrainSpeed,
-        () -> -driverController.getRawAxis(1) * DrivetrainConstants.DrivetrainSpeed,
-        () -> driverController.getRawAxis(2) * DrivetrainConstants.DrivetrainSpeed
+        () -> Math.pow(driverController.getRawAxis(0), 3),
+        () -> Math.pow(driverController.getRawAxis(1), 3),
+        () -> Math.pow(driverController.getRawAxis(2), 3),
+        () -> speedChooser.getSelected(),
+        ahrs
       )
     );
   }
@@ -64,5 +83,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(drivetrain);
+  }
+
+  public void teleopInit() {
+    
   }
 }
