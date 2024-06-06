@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,8 +49,6 @@ public class RobotContainer {
     speedChooser.addOption("Slow Speed", DrivetrainConstants.DrivetrainSlowSpeed);
     speedChooser.addOption("Fast Speed", DrivetrainConstants.DrivetrainFastSpeed);
     SmartDashboard.putData(speedChooser);
-
-    ahrs.reset();
     SmartDashboard.putData(ahrs);
     // Configure the trigger bindings
     configureBindings();
@@ -72,6 +72,14 @@ public class RobotContainer {
         () -> Math.pow(driverController.getRawAxis(2), 3),
         () -> speedChooser.getSelected(),
         ahrs
+      )
+    );
+
+    driverController.button(3).onTrue(
+      new InstantCommand(
+        () -> {
+          ahrs.reset();
+        }
       )
     );
   }
