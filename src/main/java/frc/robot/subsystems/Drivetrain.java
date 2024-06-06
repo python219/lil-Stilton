@@ -4,21 +4,12 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Constants.DrivetrainConstants;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DrivetrainConstants;
 
 /**
  * Drivetrain subsystem controlled with ChassisSpeeds
@@ -46,6 +37,18 @@ public class Drivetrain extends SubsystemBase {
     double frontRightSpeed = -xSpeed + ySpeed - rotate;
     double backLeftSpeed = -xSpeed + ySpeed + rotate;
     double backRightSpeed = xSpeed + ySpeed - rotate;
+
+    double greaterInput = Math.max(Math.max(Math.abs(frontLeftSpeed), Math.abs(frontRightSpeed)), Math.max(Math.abs(backLeftSpeed), Math.abs(backRightSpeed));
+    double lesserInput = Math.min(Math.abs(xSpeed), Math.abs(zRotation));
+    if (greaterInput == 0.0) {
+      frontLeftSpeed = frontRightSpeed = backLeftSpeed = backRightSpeed = 0.0;
+    }
+    if (greaterInput > 1.0) {
+      frontLeftSpeed /= greaterInput;
+      frontRightSpeed /= greaterInput;
+      backLeftSpeed /= greaterInput;
+      backRightSpeed /= greaterInput;
+    }
 
     SmartDashboard.putNumber("Front Left Setpoint", frontLeftSpeed);
     SmartDashboard.putNumber("Front Right Setpoint", frontRightSpeed);
