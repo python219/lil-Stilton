@@ -38,8 +38,7 @@ public class Drivetrain extends SubsystemBase {
     double backLeftSpeed = -xSpeed + ySpeed + rotate;
     double backRightSpeed = xSpeed + ySpeed - rotate;
 
-    double greaterInput = Math.max(Math.max(Math.abs(frontLeftSpeed), Math.abs(frontRightSpeed)), Math.max(Math.abs(backLeftSpeed), Math.abs(backRightSpeed));
-    double lesserInput = Math.min(Math.abs(xSpeed), Math.abs(zRotation));
+    double greaterInput = Math.max(Math.max(Math.abs(frontLeftSpeed), Math.abs(frontRightSpeed)), Math.max(Math.abs(backLeftSpeed), Math.abs(backRightSpeed)));
     if (greaterInput == 0.0) {
       frontLeftSpeed = frontRightSpeed = backLeftSpeed = backRightSpeed = 0.0;
     }
